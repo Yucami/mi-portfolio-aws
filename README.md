@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+# Portfolio AWS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sitio web estático desplegado en AWS como primer proyecto de mi portfolio cloud.
 
-## Available Scripts
+## Servicios utilizados
+- **Amazon S3**: almacenamiento y hosting del sitio estático
+- **Amazon CloudFront**: distribución de contenido 
+- **Amazon Route 53**: gestión de dominio (pendiente)
 
-In the project directory, you can run:
+## Arquitectura
+El frontend React se compila con npm run build y se sube al bucket S3 
+configurado como sitio web estático con acceso público.
 
-### `npm start`
+## Por qué S3 para hosting
+Es la solución más sencilla y económica para un sitio estático sin neecsidad de gestionar servidores, además escala automáticamente.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Por qué CloudFront
+CloudFront pone el contenido en servidores distribuidos por todo el mundo 
+(edge locations), así los usuarios reciben el portfolio más rápido 
+independientemente de dónde estén. Además añade HTTPS automáticamente.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Limitación conocida
+El bucket S3 es accesible directamente además de por CloudFront. 
+Esto ocurre porque uso el website endpoint de S3, que requiere acceso público. 
+En producción real se usaría el bucket endpoint con OAC para que solo CloudFront pueda acceder al bucket.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## URL
+http://mi-portfolio-aws.s3-website-us-east-1.amazonaws.com
+https://d1lr3mcj80288c.cloudfront.net
