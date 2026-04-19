@@ -50,6 +50,12 @@ para que React gestione las rutas correctamente.
 
 **Total: ~1,58$/mes (Free Tier) | ~2,58$/mes (después)**
 
+## Frontend
+Aplicación React con diseño minimalista en dark mode. Las secciones 
+se revelan con animaciones suaves al hacer scroll usando IntersectionObserver, 
+sin librerías externas. Al terminar todos los proyectos del portfolio 
+se actualizará el diseño final.
+
 ## URLs
 - https://yucami.com
 - https://www.yucami.com
