@@ -287,3 +287,62 @@ h2.light {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ── Formulario de contacto ── */
+.contacto-form {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 480px;
+}
+
+.contacto-form input,
+.contacto-form textarea {
+  padding: 12px 16px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.contacto-form input:focus,
+.contacto-form textarea:focus {
+  border-color: #fff;
+}
+
+.contacto-form button {
+  padding: 12px 24px;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  align-self: flex-start;
+}
+
+.contacto-form button:hover {
+  opacity: 0.85;
+}
+
+.contacto-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-ok {
+  color: #4caf50;
+  font-size: 0.9rem;
+}
+
+.form-error {
+  color: #f44336;
+  font-size: 0.9rem;
+}

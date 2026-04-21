@@ -1,8 +1,34 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 function App() {
   const observerRef = useRef(null);
+  const [formData, setFormData] = useState({ nombre: '', email: '', mensaje: '' });
+  const [estado, setEstado] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setEstado('enviando');
+    try {
+      const res = await fetch('https://dezerftu66.execute-api.us-east-1.amazonaws.com/prod/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (res.ok) {
+        setEstado('ok');
+        setFormData({ nombre: '', email: '', mensaje: '' });
+      } else {
+        setEstado('error');
+      }
+    } catch {
+      setEstado('error');
+    }
+  };
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -49,10 +75,10 @@ function App() {
           <span className="seccion-label">01 — Sobre mi</span>
           <h2>Profesional en transicion hacia el cloud</h2>
           <p>
-            Certificada como AWS Solutions Architect Associate, construyo
-            arquitecturas cloud escalables, seguras y optimizadas en coste.
-            Vengo de un sector donde las personas importan, y eso lo traigo
-            tambien a como diseno soluciones tecnicas.
+            AWS Certified Solutions Architect Associate.
+            Aprendiendo cloud desde cero con proyectos reales en AWS.
+            En transición desde un sector donde las personas
+            y los procesos importan.
           </p>
         </div>
       </section>
@@ -75,8 +101,30 @@ function App() {
                 <span className="tag">Route 53</span>
                 <span className="tag">ACM</span>
               </div>
-              
-              <a  href="https://github.com/yucami/mi-portfolio-aws"
+
+              <a href="https://github.com/yucami/mi-portfolio-aws"
+                className="card-link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Ver en GitHub
+              </a>
+            </div>
+            <div className="proyecto-card reveal">
+              <div className="card-numero">02</div>
+              <h3>Formulario serverless</h3>
+              <p>
+                Formulario de contacto con función Lambda en Python,
+                endpoint en API Gateway y envío de email con SES.
+                Logs estructurados en CloudWatch.
+              </p>
+              <div className="card-tags">
+                <span className="tag">Lambda</span>
+                <span className="tag">API Gateway</span>
+                <span className="tag">SES</span>
+                <span className="tag">CloudWatch</span>
+              </div>
+              <a href="https://github.com/Yucami/proyecto2-serverless-form"
                 className="card-link"
                 target="_blank"
                 rel="noreferrer"
@@ -94,12 +142,12 @@ function App() {
           <h2>Hablemos</h2>
           <p>Disponible para oportunidades en cloud y AWS.</p>
           <div className="contacto-links">
-            <a href="mailto:odaya.fnavarro@gmail.com" className="contacto-item">
+            <a href="mailto:contacto@yucami.com" className="contacto-item">
               <span className="contacto-icon">✉</span>
-              odaya.fnavarro@gmail.com
+              contacto@yucami.com
             </a>
-            
-            <a  href="https://linkedin.com/in/miproximoperfil"
+
+            <a href="https://linkedin.com/in/miproximoperfil"
               target="_blank"
               rel="noreferrer"
               className="contacto-item"
@@ -107,8 +155,8 @@ function App() {
               <span className="contacto-icon">in</span>
               LinkedIn
             </a>
-            
-            <a  href="https://github.com/yucami"
+
+            <a href="https://github.com/yucami"
               target="_blank"
               rel="noreferrer"
               className="contacto-item"
@@ -117,6 +165,39 @@ function App() {
               GitHub
             </a>
           </div>
+
+          <form className="contacto-form" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Tu nombre"
+              value={formData.nombre}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Tu email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <textarea
+              name="mensaje"
+              placeholder="Tu mensaje"
+              rows="5"
+              value={formData.mensaje}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit" disabled={estado === 'enviando'}>
+              {estado === 'enviando' ? 'Enviando...' : 'Enviar mensaje'}
+            </button>
+            {estado === 'ok' && <p className="form-ok">✅ Mensaje enviado correctamente</p>}
+            {estado === 'error' && <p className="form-error">❌ Error al enviar. Inténtalo de nuevo</p>}
+          </form>
+
         </div>
       </section>
 
